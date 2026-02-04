@@ -61,7 +61,7 @@ const About = () => {
     {
       icon: <FiBook />,
       title: 'Innovation',
-      description: 'AI-Driven Cloud Automation',
+      description: 'AI-Driven DevOps Automation',
     },
     {
       icon: <FiTrendingUp />,

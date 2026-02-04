@@ -30,13 +30,13 @@ const Home = () => {
       // Set fallback data
       setProfile({
         name: 'Akshat Rastogi',
-        title: 'Backend Developer & Cloud Enthusiast',
+        title: 'Backend Developer & DevOps Enthusiast',
         bio: 'Building scalable microservices and cloud-native applications with Spring Boot, AWS, and modern DevOps practices.',
       });
       setSocial({
-        github: 'https://github.com/akshatrastogi',
-        linkedin: 'https://linkedin.com/in/akshatrastogi',
-        leetcode: 'https://leetcode.com/akshatrastogi',
+        github: 'https://github.com/Akshat-Rastogi-007',
+        linkedin: 'https://www.linkedin.com/in/akshtrastogi/',
+        leetcode: 'https://leetcode.com/u/akshat__rastogi/',
         email: 'itsakshat1001@gmail.com',
       });
     }

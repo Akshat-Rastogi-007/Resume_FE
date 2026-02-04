@@ -10,17 +10,17 @@ const Footer = () => {
     {
       name: 'GitHub',
       icon: <FiGithub />,
-      url: 'https://github.com/akshatrastogi',
+      url: 'https://github.com/Akshat-Rastogi-007',
     },
     {
       name: 'LinkedIn',
       icon: <FiLinkedin />,
-      url: 'https://linkedin.com/in/akshatrastogi',
+      url: 'https://www.linkedin.com/in/akshtrastogi/',
     },
     {
       name: 'LeetCode',
       icon: <SiLeetcode />,
-      url: 'https://leetcode.com/akshatrastogi',
+      url: 'https://leetcode.com/u/akshat__rastogi/',
     },
     {
       name: 'Email',
@@ -35,7 +35,7 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-logo">
             <h3>Akshat Rastogi</h3>
-            <p>Backend Developer & Cloud Enthusiast</p>
+            <p>Backend Developer & DevOps Enthusiast</p>
           </div>
 
           <div className="footer-links">

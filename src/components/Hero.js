@@ -71,7 +71,7 @@ const Hero = ({ profile, social }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
           >
-            {profile?.title || 'Backend Developer & Cloud Enthusiast'}
+            {profile?.title || 'Backend Developer & DevOps Enthusiast'}
           </motion.h2>
 
           <motion.p

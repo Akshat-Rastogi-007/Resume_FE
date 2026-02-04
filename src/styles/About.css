@@ -39,7 +39,7 @@
 .highlight-card:hover {
   border-color: var(--color-primary);
   transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 8px 24px rgba(34, 34, 34, 0.12);
 }
 
 .highlight-icon {

@@ -1,5 +1,5 @@
 .projects {
-  background: var(--color-bg-secondary);
+  background: var(--color-bg);
 }
 
 .project-filters {
@@ -70,7 +70,7 @@
 
 .project-card:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 8px 32px rgba(34, 34, 34, 0.12);
 }
 
 .project-card.featured {
@@ -129,9 +129,9 @@
 
 .tech-tag {
   padding: 0.375rem 0.875rem;
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  color: var(--color-primary-light);
+  background: rgba(34, 34, 34, 0.08);
+  border: 1px solid rgba(34, 34, 34, 0.15);
+  color: var(--color-text);
   border-radius: var(--radius-sm);
   font-size: 0.8125rem;
   font-weight: 500;
