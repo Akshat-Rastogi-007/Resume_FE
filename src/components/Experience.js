@@ -21,7 +21,21 @@ const Experience = () => {
   const fetchExperience = async () => {
     try {
       const data = await getExperience();
-      setExperiences(data);
+      
+      // Ensure data is an array with valid experience objects
+      let experiences = [];
+      if (Array.isArray(data)) {
+        experiences = data.filter(exp => exp && exp.position && exp.company);
+      } else if (data && Array.isArray(data.experiences)) {
+        experiences = data.experiences.filter(exp => exp && exp.position && exp.company);
+      }
+      
+      // If no valid experiences, throw error to use fallback
+      if (experiences.length === 0) {
+        throw new Error('No valid experience data');
+      }
+      
+      setExperiences(experiences);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching experience:', error);
@@ -29,6 +43,32 @@ const Experience = () => {
       setExperiences([
         {
           id: 1,
+          company: 'Dean Career Cloud, School of CSET, Bennett University',
+          position: 'Senior Core Executive – Corporate & Alumni Relations',
+          startDate: 'Mar 2026',
+          endDate: 'Present',
+          location: 'Greater Noida, UP',
+          current: true,
+          description: [
+            'Appointed as Senior Core representing the School of Computer Science Engineering & Technology at Dean Career Cloud, the university\'s placement and industry interface body',
+            'Coordinate placement drives, manage student communications, and facilitate connections between students and alumni across industry verticals',
+            'Organize industry-insight sessions and alumni interaction events to bridge the gap between academia and professional environments',
+          ],
+        },
+        {
+          id: 2,
+          company: 'Bennett Springer Club, School of CSET, Bennett University',
+          position: 'Tech Head',
+          startDate: 'Mar 2026',
+          endDate: 'Present',
+          location: 'Greater Noida, UP',
+          current: true,
+          description: [
+            'Leading technical initiatives and managing the technology stack and developer community within the Bennett Springer Club under the School of Computer Science',
+          ],
+        },
+        {
+          id: 3,
           company: 'The GMAT Co (GREPREP)',
           position: 'Research Intern & Backend Developer',
           startDate: 'Apr 2025',
@@ -36,9 +76,8 @@ const Experience = () => {
           location: 'Remote',
           current: false,
           description: [
-            'Developed and maintained production-grade backend features using Spring Boot and Java for educational technology platform serving students preparing for standardized tests',
-            'Integrated JWT-based authentication and Spring Security modules for secure user access control, ensuring role-based authorization across multiple services',
-            'Designed and integrated robust RESTful APIs in collaboration with frontend teams, ensuring seamless data flow and efficient communication between distributed services',
+            'Developed and maintained production-grade backend features using Spring Boot and Java for an EdTech platform serving students preparing for standardized tests',
+            'Integrated JWT-based authentication and Spring Security modules for secure role-based access control and designed RESTful APIs ensuring seamless data flow across distributed services',
           ],
         },
       ]);
@@ -137,7 +176,7 @@ const Experience = () => {
                 </div>
 
                 <ul className="experience-description">
-                  {exp.description.map((item, i) => (
+                  {(Array.isArray(exp.description) ? exp.description : []).map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
                 </ul>

@@ -20,7 +20,23 @@ const Skills = () => {
   const fetchSkills = async () => {
     try {
       const data = await getSkills();
-      setSkills(data);
+      // Ensure data is an object with skill categories and contains actual skills
+      let skillsData = {};
+      
+      if (data && typeof data === 'object') {
+        // Check if data contains skill arrays (valid structure)
+        const hasValidStructure = Object.values(data).some(val => Array.isArray(val));
+        if (hasValidStructure) {
+          skillsData = data;
+        }
+      }
+      
+      // If no valid data, use fallback
+      if (Object.keys(skillsData).length === 0) {
+        throw new Error('Invalid skills data structure');
+      }
+      
+      setSkills(skillsData);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching skills:', error);
@@ -30,34 +46,24 @@ const Skills = () => {
         'Frameworks & Technologies': [
           'Spring Framework',
           'Hibernate',
-          'JWT',
-          'OAuth2',
           'MySQL',
-          'Redis',
           'Kafka',
         ],
         'Cloud & DevOps': [
           'AWS',
-          'Terraform',
           'Docker',
           'CI/CD',
-          'Cloud Architecture',
-          'Infrastructure as Code',
+          'Terraform',
         ],
         'Developer Tools': [
           'Git',
-          'GitHub',
           'IntelliJ IDEA',
-          'Postman',
           'Maven',
-          'Linux/Unix',
         ],
         'Core Competencies': [
           'REST APIs',
           'Microservices',
           'Event Driven Architecture',
-          'Security',
-          'DevOps Workflow',
         ],
       });
       setLoading(false);
@@ -116,27 +122,31 @@ const Skills = () => {
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
         >
-          {Object.entries(skills).map(([category, skillList], categoryIndex) => (
-            <motion.div
-              key={category}
-              className="skill-category"
-              variants={itemVariants}
-            >
-              <h3 className="category-title">{category}</h3>
-              <div className="skill-list">
-                {skillList.map((skill, index) => (
-                  <motion.div
-                    key={index}
-                    className="skill-item"
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                  >
-                    <span className="skill-name">{skill}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+          {Object.entries(skills).map(([category, skillList], categoryIndex) => {
+            // Ensure skillList is an array
+            const skillArray = Array.isArray(skillList) ? skillList : [];
+            return (
+              <motion.div
+                key={category}
+                className="skill-category"
+                variants={itemVariants}
+              >
+                <h3 className="category-title">{category}</h3>
+                <div className="skill-list">
+                  {skillArray.map((skill, index) => (
+                    <motion.div
+                      key={index}
+                      className="skill-item"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <span className="skill-name">{skill}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { downloadResume } from '../services/api';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [downloadingResume, setDownloadingResume] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +33,26 @@ const Navbar = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleDownloadResume = async () => {
+    try {
+      setDownloadingResume(true);
+      const blob = await downloadResume();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'Resume.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      alert('Failed to download resume. Please try again.');
+    } finally {
+      setDownloadingResume(false);
     }
   };
 
@@ -72,16 +94,15 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <motion.a
-          href="/resume.pdf"
+        <motion.button
+          onClick={handleDownloadResume}
           className="btn btn-resume"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          target="_blank"
-          rel="noopener noreferrer"
+          disabled={downloadingResume}
         >
-          Resume
-        </motion.a>
+          {downloadingResume ? 'Downloading...' : 'Resume'}
+        </motion.button>
       </div>
     </motion.nav>
   );

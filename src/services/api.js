@@ -30,38 +30,14 @@ export const updateProfile = async (profileData) => {
 };
 
 /**
- * PROJECTS ENDPOINTS
+ * RESUME ENDPOINTS
  */
 
-// GET /api/projects - Get all projects
-export const getProjects = async () => {
-  const response = await api.get('/projects');
-  return response.data;
-};
-
-// GET /api/projects/:id - Get single project by ID
-export const getProjectById = async (id) => {
-  const response = await api.get(`/projects/${id}`);
-  return response.data;
-};
-
-// POST /api/projects - Create new project
-// Body: { title, description, technologies, githubUrl, liveUrl, imageUrl, featured, order }
-export const createProject = async (projectData) => {
-  const response = await api.post('/projects', projectData);
-  return response.data;
-};
-
-// PUT /api/projects/:id - Update existing project
-// Body: { title, description, technologies, githubUrl, liveUrl, imageUrl, featured, order }
-export const updateProject = async (id, projectData) => {
-  const response = await api.put(`/projects/${id}`, projectData);
-  return response.data;
-};
-
-// DELETE /api/projects/:id - Delete project
-export const deleteProject = async (id) => {
-  const response = await api.delete(`/projects/${id}`);
+// GET /api/resume/download - Download resume PDF
+export const downloadResume = async () => {
+  const response = await api.get('/resume/download', {
+    responseType: 'blob',
+  });
   return response.data;
 };
 
@@ -100,8 +76,13 @@ export const deleteExperience = async (id) => {
 
 // GET /api/skills - Get all skills grouped by category
 export const getSkills = async () => {
-  const response = await api.get('/skills');
-  return response.data;
+  try {
+    const response = await api.get('/skills');
+    return response.data;
+  } catch (error) {
+    // Return fallback skills data
+    throw error;
+  }
 };
 
 // POST /api/skills - Add new skill

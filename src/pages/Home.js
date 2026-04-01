@@ -46,10 +46,10 @@ const Home = () => {
     <div className="home">
       <Navbar />
       <Hero profile={profile} social={social} />
+      <Experience />
+      <Projects />
       <About />
       <Skills />
-      <Projects />
-      <Experience />
       <Contact />
       <Footer />
     </div>

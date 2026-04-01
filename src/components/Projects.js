@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
-import { getProjects } from '../services/api';
 import '../styles/Projects.css';
 
 const Projects = () => {
@@ -21,12 +20,7 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const data = await getProjects();
-      setProjects(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-      // Fallback data based on resume
+      // Using hardcoded project data from resume
       setProjects([
         {
           id: 1,
@@ -67,6 +61,9 @@ const Projects = () => {
           category: 'backend',
         },
       ]);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error loading projects:', error);
       setLoading(false);
     }
   };
@@ -162,7 +159,7 @@ const Projects = () => {
               <p className="project-description">{project.description}</p>
 
               <div className="project-tech">
-                {project.technologies.map((tech, i) => (
+                {(Array.isArray(project.technologies) ? project.technologies : []).map((tech, i) => (
                   <span key={i} className="tech-tag">
                     {tech}
                   </span>
